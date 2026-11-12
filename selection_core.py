@@ -46,6 +46,9 @@ def submit_selection(event: dict, actor_id: str, media_ids: list, service_codes:
     for mid in media_ids:
         if mid not in _media_ids_of(event):
             raise SelectionError("MEDIA_NOT_IN_EVENT")
+    for mid in media_ids:
+        if media_ids.count(mid) > 1:
+            raise SelectionError("DUPLICATE_MEDIA") 
 
     selections = event.setdefault("selections", [])
     selection = {
